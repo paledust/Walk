@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField]
+    private SoundManager _soundManager;
+    public SoundManager soundManager{get{return _soundManager;}}
     public static GameManager Instance{get{return instance;}}
     private static GameManager instance;
     public CharacterManager characterManager{get; private set;}
@@ -17,7 +20,13 @@ public class GameManager : MonoBehaviour
         }
         DontDestroyOnLoad(this);
     }
-    public void AssignCharacterManager(CharacterManager manager){
+    void Update(){
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            EndGame();
+        }
+    }
+    public void EndGame(){Application.Quit();}
+    public void GrabCharacterManager(CharacterManager manager){
         characterManager = manager;
     }
 }
